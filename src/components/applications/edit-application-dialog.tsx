@@ -38,8 +38,8 @@ interface EditApplicationDialogProps {
         salaryRange?: string;
         notes?: string;
         dateApplied: number;
-        priority: string;
-        tags: string[];
+        priority?: string;
+        tags?: string[];
     };
     trigger?: React.ReactNode;
 }
