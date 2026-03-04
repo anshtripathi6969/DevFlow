@@ -25,6 +25,8 @@ import {
 import { Plus } from "lucide-react";
 import { toast } from "sonner";
 import { Textarea } from "@/components/ui/textarea";
+import { X, Flame, Zap, Minus, Info } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 interface AddApplicationDialogProps {
     trigger?: React.ReactNode;
@@ -35,6 +37,28 @@ export function AddApplicationDialog({ trigger }: AddApplicationDialogProps) {
     const createApplication = useMutation(api.applications.createApplication);
     const [open, setOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [tags, setTags] = useState<string[]>([]);
+    const [tagInput, setTagInput] = useState("");
+    const [priority, setPriority] = useState("Medium");
+
+    const addTag = () => {
+        const trimmed = tagInput.trim();
+        if (trimmed && !tags.includes(trimmed)) {
+            setTags([...tags, trimmed]);
+            setTagInput("");
+        }
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent) => {
+        if (e.key === "Enter" || e.key === ",") {
+            e.preventDefault();
+            addTag();
+        }
+    };
+
+    const removeTag = (tagToRemove: string) => {
+        setTags(tags.filter(t => t !== tagToRemove));
+    };
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -50,6 +74,8 @@ export function AddApplicationDialog({ trigger }: AddApplicationDialogProps) {
                 role: formData.get("role") as string,
                 location: formData.get("location") as string,
                 status: formData.get("status") as string,
+                priority,
+                tags,
                 jobUrl: (formData.get("jobUrl") as string) || undefined,
                 salaryRange: (formData.get("salaryRange") as string) || undefined,
                 notes: (formData.get("notes") as string) || undefined,
@@ -133,13 +159,18 @@ export function AddApplicationDialog({ trigger }: AddApplicationDialogProps) {
                             </div>
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="space-y-2">
-                                    <Label htmlFor="salaryRange">Salary Range (Optional)</Label>
-                                    <Input
-                                        id="salaryRange"
-                                        name="salaryRange"
-                                        placeholder="$120k - $150k"
-                                        className="rounded-xl bg-muted/50 border-none h-10"
-                                    />
+                                    <Label htmlFor="priority">Priority</Label>
+                                    <Select value={priority} onValueChange={setPriority}>
+                                        <SelectTrigger className="rounded-xl bg-muted/50 border-none h-10">
+                                            <SelectValue placeholder="Select priority" />
+                                        </SelectTrigger>
+                                        <SelectContent className="rounded-xl border-none shadow-xl bg-card">
+                                            <SelectItem value="Dream" className="text-orange-500 font-bold">🔥 Dream</SelectItem>
+                                            <SelectItem value="High" className="text-yellow-500 font-bold">⚡ High</SelectItem>
+                                            <SelectItem value="Medium">Medium</SelectItem>
+                                            <SelectItem value="Low">Low</SelectItem>
+                                        </SelectContent>
+                                    </Select>
                                 </div>
                                 <div className="space-y-2">
                                     <Label htmlFor="jobUrl">Job URL (Optional)</Label>
@@ -148,6 +179,40 @@ export function AddApplicationDialog({ trigger }: AddApplicationDialogProps) {
                                         name="jobUrl"
                                         type="url"
                                         placeholder="https://..."
+                                        className="rounded-xl bg-muted/50 border-none h-10"
+                                    />
+                                </div>
+                            </div>
+                            <div className="space-y-2">
+                                <Label htmlFor="tags">Tags (Remote, Startup, etc.)</Label>
+                                <div className="space-y-2">
+                                    <div className="flex flex-wrap gap-2 mb-2">
+                                        {tags.map((tag) => (
+                                            <Badge key={tag} variant="secondary" className="rounded-lg gap-1 px-2 py-1 bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border-none">
+                                                {tag}
+                                                <button type="button" onClick={() => removeTag(tag)} className="hover:text-destructive">
+                                                    <X size={12} />
+                                                </button>
+                                            </Badge>
+                                        ))}
+                                    </div>
+                                    <Input
+                                        id="tags"
+                                        value={tagInput}
+                                        onChange={(e) => setTagInput(e.target.value)}
+                                        onKeyDown={handleKeyDown}
+                                        placeholder="Type and press Enter..."
+                                        className="rounded-xl bg-muted/50 border-none h-10"
+                                    />
+                                </div>
+                            </div>
+                            <div className="grid grid-cols-1 gap-4">
+                                <div className="space-y-2">
+                                    <Label htmlFor="salaryRange">Salary Range (Optional)</Label>
+                                    <Input
+                                        id="salaryRange"
+                                        name="salaryRange"
+                                        placeholder="$120k - $150k"
                                         className="rounded-xl bg-muted/50 border-none h-10"
                                     />
                                 </div>

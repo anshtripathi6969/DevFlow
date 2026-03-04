@@ -11,6 +11,8 @@ export const createApplication = mutation({
         salaryRange: v.optional(v.string()),
         dateApplied: v.number(),
         status: v.string(),
+        priority: v.string(),
+        tags: v.array(v.string()),
         notes: v.optional(v.string()),
     },
     handler: async (ctx, args) => {
@@ -90,6 +92,8 @@ export const updateApplication = mutation({
         jobUrl: v.optional(v.string()),
         salaryRange: v.optional(v.string()),
         dateApplied: v.number(),
+        priority: v.string(),
+        tags: v.array(v.string()),
         notes: v.optional(v.string()),
     },
     handler: async (ctx, args) => {

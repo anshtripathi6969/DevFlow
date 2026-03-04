@@ -5,8 +5,8 @@ import { CSS } from "@dnd-kit/utilities";
 import { cn } from "@/lib/utils";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, MapPin, Building2, Clock, DollarSign } from "lucide-react";
-import { format, formatDistanceToNow } from "date-fns";
+import { Calendar, MapPin, Building2, Clock, DollarSign, Flame, Zap, Minus, Info, Tag } from "lucide-react";
+import { format, formatDistanceToNow, differenceInDays } from "date-fns";
 import { motion } from "framer-motion";
 
 interface KanbanCardProps {
@@ -76,22 +76,48 @@ export function KanbanCard({ item, isOverlay }: KanbanCardProps) {
                             {item.companyName.charAt(0)}
                         </div>
                         <div className="flex-1 min-w-0">
-                            <h4 className="font-black text-sm leading-tight truncate group-hover:text-blue-500 transition-colors">{item.companyName}</h4>
-                            <p className="text-[11px] font-bold text-muted-foreground mt-0.5 uppercase tracking-tighter truncate">
+                            <div className="flex items-start justify-between gap-2">
+                                <h4 className="font-black text-sm leading-tight truncate group-hover:text-blue-500 transition-colors uppercase tracking-tight">{item.companyName}</h4>
+                                {item.priority === "Dream" && (
+                                    <div className="flex items-center gap-1 text-[9px] font-black uppercase tracking-widest text-orange-500 bg-orange-500/10 px-2 py-0.5 rounded-full border border-orange-500/20 shrink-0 animate-pulse">
+                                        <Flame size={10} className="fill-current" />
+                                        Dream
+                                    </div>
+                                )}
+                                {item.priority === "High" && (
+                                    <div className="flex items-center gap-1 text-[9px] font-black uppercase tracking-widest text-yellow-500 bg-yellow-500/10 px-2 py-0.5 rounded-full border border-yellow-500/20 shrink-0">
+                                        <Zap size={10} className="fill-current" />
+                                        High
+                                    </div>
+                                )}
+                            </div>
+                            <p className="text-[11px] font-bold text-muted-foreground mt-1 uppercase tracking-tighter truncate opacity-70">
                                 {item.role}
                             </p>
                         </div>
                     </div>
 
-                    <div className="flex flex-wrap gap-3">
-                        <div className="flex items-center gap-1.5 text-[10px] font-bold text-muted-foreground uppercase tracking-tight">
-                            <MapPin className="size-3 text-zinc-400" />
-                            {item.location}
+                    <div className="flex flex-col gap-3">
+                        <div className="flex flex-wrap gap-x-4 gap-y-2">
+                            <div className="flex items-center gap-1.5 text-[10px] font-bold text-muted-foreground uppercase tracking-tight">
+                                <MapPin className="size-3 text-zinc-400" />
+                                {item.location}
+                            </div>
+                            <div className="flex items-center gap-1.5 text-[10px] font-bold text-muted-foreground uppercase tracking-tight">
+                                <Clock className="size-3 text-blue-500" />
+                                <span>Applied {formatDistanceToNow(new Date(item.dateApplied), { addSuffix: true })}</span>
+                            </div>
                         </div>
-                        <div className="flex items-center gap-1.5 text-[10px] font-bold text-muted-foreground uppercase tracking-tight">
-                            <Clock className="size-3 text-emerald-500" />
-                            {formatDistanceToNow(new Date(item._creationTime || Date.now()), { addSuffix: true })}
-                        </div>
+
+                        {item.tags && item.tags.length > 0 && (
+                            <div className="flex flex-wrap gap-1.5">
+                                {item.tags.map((tag: string) => (
+                                    <div key={tag} className="text-[9px] font-bold px-2 py-0.5 bg-zinc-100 dark:bg-zinc-800/50 text-zinc-500 rounded-lg border border-zinc-200/30 dark:border-zinc-700/30">
+                                        {tag}
+                                    </div>
+                                ))}
+                            </div>
+                        )}
                     </div>
 
                     <div className="flex items-center justify-between pt-1 border-t border-zinc-50 dark:border-zinc-800/50 mt-2">

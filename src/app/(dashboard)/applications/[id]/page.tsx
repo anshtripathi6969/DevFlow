@@ -24,6 +24,9 @@ import {
     Plus,
     Users,
     MoreVertical,
+    Flame,
+    Zap,
+    Tag,
 } from "lucide-react";
 import Link from "next/link";
 import { format } from "date-fns";
@@ -143,6 +146,33 @@ export default function ApplicationDetailPage() {
                                     {format(new Date(application.dateApplied), "MMM d, yyyy")}
                                 </div>
                             </div>
+                            <div className="space-y-1">
+                                <span className="text-xs uppercase tracking-wider text-muted-foreground font-bold">Priority</span>
+                                <div className="flex items-center gap-2 font-black uppercase tracking-widest text-[11px]">
+                                    {application.priority === "Dream" && (
+                                        <div className="flex items-center gap-1.5 text-orange-500 bg-orange-500/10 px-3 py-1 rounded-xl border border-orange-500/20 animate-pulse">
+                                            <Flame size={14} className="fill-current" />
+                                            Dream
+                                        </div>
+                                    )}
+                                    {application.priority === "High" && (
+                                        <div className="flex items-center gap-1.5 text-yellow-500 bg-yellow-500/10 px-3 py-1 rounded-xl border border-yellow-500/20">
+                                            <Zap size={14} className="fill-current" />
+                                            High
+                                        </div>
+                                    )}
+                                    {application.priority === "Medium" && (
+                                        <div className="text-blue-500 bg-blue-500/10 px-3 py-1 rounded-xl border border-blue-500/20">
+                                            Medium
+                                        </div>
+                                    )}
+                                    {application.priority === "Low" && (
+                                        <div className="text-zinc-500 bg-zinc-500/10 px-3 py-1 rounded-xl border border-zinc-500/20">
+                                            Low
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
                             {application.salaryRange && (
                                 <div className="space-y-1">
                                     <span className="text-xs uppercase tracking-wider text-muted-foreground font-bold">Salary</span>
@@ -153,6 +183,17 @@ export default function ApplicationDetailPage() {
                                 </div>
                             )}
                         </div>
+
+                        {application.tags && application.tags.length > 0 && (
+                            <div className="flex flex-wrap gap-2 mt-8">
+                                {application.tags.map((tag: string) => (
+                                    <div key={tag} className="flex items-center gap-1.5 text-xs font-bold px-3 py-1 bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 rounded-xl border border-zinc-200 dark:border-zinc-700">
+                                        <Tag size={12} />
+                                        {tag}
+                                    </div>
+                                ))}
+                            </div>
+                        )}
 
                         {application.jobUrl && (
                             <div className="mt-8">

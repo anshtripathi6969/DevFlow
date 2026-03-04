@@ -20,6 +20,8 @@ export default defineSchema({
         salaryRange: v.optional(v.string()),
         dateApplied: v.number(),
         status: v.string(), // "Applied" | "OA" | "Interview" | "Rejected" | "Offer"
+        priority: v.optional(v.string()), // "Low" | "Medium" | "High" | "Dream"
+        tags: v.optional(v.array(v.string())),
         notes: v.optional(v.string()),
         createdAt: v.number(),
         updatedAt: v.number(),
