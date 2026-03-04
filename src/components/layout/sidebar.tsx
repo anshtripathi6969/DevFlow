@@ -10,8 +10,7 @@ import {
     ChevronLeft,
     ChevronRight,
     Search,
-    PlusCircle,
-    HelpCircle
+    PlusCircle
 } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -23,10 +22,10 @@ import { useUser } from "@clerk/nextjs";
 import { Building2, ArrowRight, Calendar as CalendarIcon } from "lucide-react";
 
 const navItems = [
-    { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard, id: "nav-dashboard" },
-    { name: "Board", href: "/board", icon: KanbanSquare, id: "nav-board" },
-    { name: "Applications", href: "/applications", icon: Briefcase, id: "nav-applications" },
-    { name: "Interviews", href: "/interviews", icon: CalendarIcon, id: "nav-interviews" },
+    { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+    { name: "Board", href: "/board", icon: KanbanSquare },
+    { name: "Applications", href: "/applications", icon: Briefcase },
+    { name: "Interviews", href: "/interviews", icon: CalendarIcon },
 ];
 
 export function Sidebar() {
@@ -72,7 +71,6 @@ export function Sidebar() {
                             <Link
                                 key={item.href}
                                 href={item.href}
-                                id={item.id}
                                 className={cn(
                                     "flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-bold transition-all group overflow-hidden relative",
                                     isActive
@@ -124,7 +122,7 @@ export function Sidebar() {
                 )}
 
                 {!isCollapsed && (
-                    <div id="quick-add-section" className="bg-gradient-to-br from-blue-500/10 to-indigo-500/10 border border-blue-500/20 rounded-2xl p-4 space-y-3">
+                    <div className="bg-gradient-to-br from-blue-500/10 to-indigo-500/10 border border-blue-500/20 rounded-2xl p-4 space-y-3">
                         <div className="flex items-center gap-3">
                             <div className="size-8 rounded-lg bg-blue-500/20 flex items-center justify-center text-blue-500 shrink-0">
                                 <PlusCircle size={16} />
@@ -168,21 +166,6 @@ export function Sidebar() {
                         <ChevronRight size={20} />
                     </Button>
                 )}
-            </div>
-
-            <div className="p-4 pt-2">
-                <Button
-                    variant="ghost"
-                    size="sm"
-                    className={cn(
-                        "w-full rounded-xl text-zinc-400 hover:text-blue-500 hover:bg-blue-500/10 transition-all font-bold text-[10px] uppercase gap-2 h-10 shadow-none",
-                        isCollapsed && "px-0"
-                    )}
-                    onClick={() => (window as any).startDevFlowTour?.()}
-                >
-                    <HelpCircle size={16} />
-                    {!isCollapsed && <span>Need Help?</span>}
-                </Button>
             </div>
         </aside>
     );
