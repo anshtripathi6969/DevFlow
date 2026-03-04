@@ -20,6 +20,8 @@ import { StatsCounter } from "@/components/landing/stats-counter";
 import { ProductMockup } from "@/components/landing/product-mockup";
 import { AntigravityBackground } from "@/components/landing/antigravity-background";
 import { LogoMarquee } from "@/components/landing/logo-marquee";
+import { CinematicNoise } from "@/components/landing/cinematic-noise";
+import { FloatingGlassUI } from "@/components/landing/floating-glass-ui";
 
 export default async function LandingPage() {
   const { userId } = await auth();
@@ -31,6 +33,7 @@ export default async function LandingPage() {
   return (
     <div className="flex flex-col min-h-screen bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50 selection:bg-primary/20 transition-colors duration-300 overflow-x-hidden relative">
       <AntigravityBackground />
+      <CinematicNoise />
       {/* Navigation */}
       <header className="fixed top-0 w-full z-50 glass-header">
         <GSAPEntrance y={-20} duration={0.8}>
@@ -67,7 +70,8 @@ export default async function LandingPage() {
             <div className="absolute bottom-1/4 -right-20 size-[500px] bg-emerald-500/5 rounded-full blur-[100px] animate-pulse delay-700" />
           </div>
 
-          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative">
+            <FloatingGlassUI />
             <div className="space-y-10 text-center lg:text-left">
               <GSAPEntrance delay={0.2} y={20}>
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800">

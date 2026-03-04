@@ -5,6 +5,7 @@ import { ConvexClientProvider } from "@/components/providers/convex-client-provi
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { SyncUser } from "@/components/sync-user";
+import { OnboardingFlow } from "@/components/onboarding/onboarding-flow";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -43,6 +44,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <SyncUser />
+            <OnboardingFlow onStart={true} />
             {children}
             <Toaster position="top-right" richColors closeButton />
           </ThemeProvider>

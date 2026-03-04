@@ -30,6 +30,7 @@ import { toast } from "sonner";
 import { AddApplicationDialog } from "@/components/board/add-application-dialog";
 import { motion } from "framer-motion";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "@/components/ui/button";
 import { LayoutDashboard, Sparkles } from "lucide-react";
 
 interface Application {
@@ -187,7 +188,12 @@ export default function BoardPage() {
                         Visualize your application pipeline. Drag and drop to update stages.
                     </p>
                 </div>
-                <AddApplicationDialog />
+                <AddApplicationDialog trigger={
+                    <Button id="add-app-button" className="rounded-2xl bg-zinc-900 dark:bg-zinc-50 text-zinc-50 dark:text-zinc-900 hover:bg-zinc-800 dark:hover:bg-zinc-200 px-6 font-bold h-12 shadow-xl shadow-zinc-200 dark:shadow-zinc-950 transition-all duration-300">
+                        <Sparkles size={18} className="mr-2 fill-current" />
+                        Add Application
+                    </Button>
+                } />
             </div>
 
             <div className="flex-1 overflow-x-auto overflow-y-hidden pb-6 scrollbar-hide">
