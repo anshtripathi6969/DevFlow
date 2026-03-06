@@ -19,7 +19,7 @@ if (!clerkKey) {
 const convex = new ConvexReactClient(convexUrl || "https://decisive-possum-117.convex.cloud");
 
 export function ConvexClientProvider({ children }: { children: ReactNode }) {
-    if (!clerkKey) return <>{children}</>;
+    if (!clerkKey || !convexUrl) return <>{children}</>;
 
     return (
         <ClerkProvider publishableKey={clerkKey}>
