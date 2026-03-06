@@ -16,7 +16,6 @@ export function Topbar() {
                     className="pl-10 bg-zinc-100/50 dark:bg-zinc-800/50 border-none rounded-2xl h-11 text-sm font-medium transition-all focus-visible:ring-2 focus-visible:ring-blue-500/20 focus-visible:bg-white dark:focus-visible:bg-zinc-900 shadow-inner"
                 />
             </div>
-
             <div className="flex items-center gap-4">
                 <button className="size-10 rounded-2xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-zinc-500 hover:text-foreground transition-all border border-zinc-200/50 dark:border-zinc-700/50 hover:bg-white dark:hover:bg-zinc-900 shadow-sm relative group">
                     <Bell size={18} />
@@ -24,13 +23,11 @@ export function Topbar() {
                 </button>
                 <div className="h-8 w-px bg-zinc-200 dark:bg-zinc-800 mx-1" />
                 <UserButton
-                    afterSignOutUrl="/"
                     appearance={{
                         elements: {
                             avatarBox: "h-10 w-10 rounded-2xl border-2 border-white dark:border-zinc-800 shadow-md",
                         },
-                    }}
-                />
+                    }} />
             </div>
         </header>
     );
