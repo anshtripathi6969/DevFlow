@@ -16,7 +16,7 @@ if (!clerkKey) {
     console.error("Missing NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY");
 }
 
-const convex = new ConvexReactClient(convexUrl || "https://decisive-possum-117.convex.cloud");
+const convex = new ConvexReactClient(convexUrl || "https://cheery-salmon-816.convex.cloud");
 
 export function ConvexClientProvider({ children }: { children: ReactNode }) {
     if (!clerkKey || !convexUrl) return <>{children}</>;
